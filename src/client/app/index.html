@@ -65,7 +65,9 @@
 		  };
 		  firebase.initializeApp(config);
 		</script>
-		<script>
+        <script>
+            var audio = new Audio('../assets/sounds/14-battle-wild-poke-mon-.mp3');
+            audio.play();
 			var loadBackground = function(imageNumber) {
 				var storageRef = firebase.storage().ref();
 				storageRef.child('Arena (' + imageNumber + ').jpg').getDownloadURL().then(function(url) {
