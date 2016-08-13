@@ -14,7 +14,20 @@ module.exports.attack = function(req, res) {
         var gs = snapshot.val();
         var currentPlayer = gs.currentPlayer;
         var attackSnap = snapshot.child("player" + currentPlayer).child("pokemon").child(pokeName).child("attacks").child(pokeAttack).val();
-        var damage = attackSnap.power;
+        var damage = parseInt(attackSnap.power);
+        damage *= 0.2;
+        var opposingPlayer = 3 - parseInt(currentPlayer);
+        var opposingPoke = snapshot.child("player" + opposingPlayer).val().currentPokemon;
+        var opposing_health = snapshot.child("player" + opposingPlayer).child("pokemon").child(opposingPoke).val().current_health;
+        var opposingRef = ref.child("player" + opposingPlayer).child("pokemon").child(opposingPoke);
+        opposingRef.update({
+            current_health: opposing_health - damage
+        });
+        ref.update({
+            currentPlayer : {
+                opposingPlayer : opposingPlayer
+            }
+        });
         res.json({"success":"true"});
     });
 }
