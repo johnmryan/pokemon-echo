@@ -4,3 +4,6 @@ PlayerCountIntent There are {Count} players
 
 SelectPokemonIntent I choose you {PokemonName}
 SelectPokemonIntent {PokemonName}
+
+AttackIntent {PokemonName} use {Move}
+AttackIntent {Move}

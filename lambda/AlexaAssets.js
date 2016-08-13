@@ -43,6 +43,32 @@ var AlexaAssets = {
         repromptOutput: "How many players?"
     },
 
+    SelectAttack: {
+        speechOutput: function (playerNum) {
+            return "Player "+playerNum+", select your move!";
+        },
+        repromptOutput: function (playerNum) {
+            return "Player "+playerNum+", select your move!";
+        }
+    },
+
+    AttackUsed: {
+        speechOutput: function (pokemon,move) {
+            return pokemon+" used "+move+"!";
+        }
+    },
+
+    AttackSass: {
+        speechOutput: function (move) {
+            return "Don't tell me to use "+move+". Tell your <phoneme alphabet='ipa' ph='p'okimɑːn'>pokemon</phoneme>!";
+        }
+    },
+
+    AttackError: {
+        speechOutput: "Your attack failed. Please select a new move.",
+        repromptOutput: "Please select a new move."
+    },
+
     ReadyToBattle: {
         speechOutput: "Ready to battle!"
     }
