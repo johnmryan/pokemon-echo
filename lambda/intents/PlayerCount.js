@@ -13,13 +13,13 @@ function handlePlayerCountRequest (intent, session, response) {
         session.attributes.currPlayer = 1;
 
         response.ask(
-            AlexaAssets.PlayerCount.speechOutput(count),
-            AlexaAssets.PlayerCount.repromptOutput,
+            AlexaAssets.PlayerCountSelected.speechOutput(count)+" "+AlexaAssets.SelectPokemon.speechOutput(session.attributes.currPlayer),
+            AlexaAssets.SelectPokemon.repromptOutput(session.attributes.currPlayer)
         );
 
     } else {
         response.ask(
-            AlexaAssets.PlayerCountError.speechOutput,
+            AlexaAssets.PlayerCountError.speechOutput(minPlayerCount,maxPlayerCount),
             AlexaAssets.PlayerCountError.repromptOutput
         );
     }
