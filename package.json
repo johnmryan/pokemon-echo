@@ -1,0 +1,13 @@
+{
+  "name": "pokemon-echo",
+  "version": "1.0.0",
+  "description": "Pokemon web app using alexa",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3"
+  }
+}
