@@ -9,6 +9,16 @@
                 "type": "LIST_OF_POKEMON_NAMES"
             }
             ]
+    },
+    {
+    	"intent": "PlayerCountIntent",
+        "slots":
+            [
+            {
+                 "name": "Count",
+                 "type": "AMAZON.NUMBER"
+            }
+            ]
     }
     ]
 }
