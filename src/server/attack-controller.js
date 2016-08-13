@@ -10,7 +10,7 @@ module.exports.attack = function(req, res) {
     eventRef.push(pokeName + " used " + pokeAttack + "!");
     
     //decrease health of opposing pokemon by corresponding amount
-    ref.on("value", function(snapshot) {
+    ref.once("value", function(snapshot) {
         var gs = snapshot.val();
         var currentPlayer = gs.currentPlayer;
         var attackSnap = snapshot.child("player" + currentPlayer).child("pokemon").child(pokeName).child("attacks").child(pokeAttack).val();
@@ -19,14 +19,17 @@ module.exports.attack = function(req, res) {
         var opposingPlayer = 3 - parseInt(currentPlayer);
         var opposingPoke = snapshot.child("player" + opposingPlayer).val().currentPokemon;
         var opposing_health = snapshot.child("player" + opposingPlayer).child("pokemon").child(opposingPoke).val().current_health;
+        var new_opposing_health = opposing_health - damage;
+        if (new_opposing_health <= 0) {
+            eventRef.push(opposingPoke + " has fainted!");
+            new_opposing_health = 0;
+        }
         var opposingRef = ref.child("player" + opposingPlayer).child("pokemon").child(opposingPoke);
         opposingRef.update({
-            current_health: opposing_health - damage
+            current_health: new_opposing_health
         });
         ref.update({
-            currentPlayer : {
-                opposingPlayer : opposingPlayer
-            }
+            currentPlayer : opposingPlayer
         });
         res.json({"success":"true"});
     });
