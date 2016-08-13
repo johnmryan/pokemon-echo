@@ -1,4 +1,5 @@
 var AlexaAssets = require("../AlexaAssets");
+var apiPost = require("./apiPost");
 
 function handleSelectPokemonRequest (intent, session, response) {
 
@@ -10,43 +11,29 @@ function handleSelectPokemonRequest (intent, session, response) {
     }
 
     if (pokemonName) {
+        var body = {
+            "pokemon": pokemonName,
+            "player": ""+session.attributes.currPlayer
+        };
         // increment currPlayer
         allPlayersHaveSelected = (playerCount==session.attributes.currPlayer++);
-        if (allPlayersHaveSelected) {
-            response.tell(
-                AlexaAssets.PokemonSelected.speechOutput(session.attributes.currPlayer-1,pokemonName)+" "+AlexaAssets.ReadyToBattle.speechOutput
-            );
-        } else {
-            response.ask(
-                AlexaAssets.PokemonSelected.speechOutput(session.attributes.currPlayer-1,pokemonName)+" "+AlexaAssets.SelectPokemon.speechOutput(session.attributes.currPlayer),
-                AlexaAssets.SelectPokemon.repromptOutput(session.attributes.currPlayer)
-            );
-//POSTTEST
-var request = require('request');
-
-// Set the headers
-var headers = {
-    'User-Agent':       'Super Agent/0.0.1',
-    'Content-Type':     'application/json'
-}
-
-// Configure the request
-var options = {
-    url: 'http://pokemon-echo.herokuapp.com/api/choosePokemon',
-    method: 'POST',
-    headers: headers,
-    form: {'pokemon': pokemonName, 'player': session.attributes.currPlayer}
-}
-
-// Start the request
-request(options, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-        // Print out the response body
-        console.log(body)
-    }
-})
-//POSTTEST
-        }
+        apiPost("choosePokemon",body,function(){
+            if (allPlayersHaveSelected) {
+                // reset to first player
+                session.attributes.currPlayer = 1;
+                response.ask(
+                    AlexaAssets.PokemonSelected.speechOutput(playerCount,pokemonName)
+                    +" "+AlexaAssets.ReadyToBattle.speechOutput
+                    +" "+AlexaAssets.SelectAttack.speechOutput(session.attributes.currPlayer),
+                    AlexaAssets.SelectAttack.repromptOutput(session.attributes.currPlayer)
+                );
+            } else {
+                response.ask(
+                    AlexaAssets.PokemonSelected.speechOutput(session.attributes.currPlayer-1,pokemonName)+" "+AlexaAssets.SelectPokemon.speechOutput(session.attributes.currPlayer),
+                    AlexaAssets.SelectPokemon.repromptOutput(session.attributes.currPlayer)
+                );
+            }
+        });
 
     } else {
         // currPlayer stays the same

@@ -19,6 +19,20 @@
                  "type": "AMAZON.NUMBER"
             }
             ]
+    },
+    {
+        "intent": "AttackIntent",
+        "slots": 
+            [
+            {
+                "name": "Pokemon",
+                "type": "LIST_OF_POKEMON_NAMES"
+            },
+            {
+                "name": "Move",
+                "type": "LIST_OF_MOVES"
+            }
+            ]
     }
     ]
 }
