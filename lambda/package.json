@@ -1,0 +1,12 @@
+{
+  "name": "pokemon-echo-request-forwarder",
+  "version": "1.0.0",
+  "description": "Pokemon web app using alexa",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "request": "^2.74.0"
+  }
+}

@@ -11,16 +11,19 @@ function handleSelectPokemonRequest (intent, session, response) {
 
     if (pokemonName) {
         // increment currPlayer
-        allPlayersHaveSelected = (playerCount===session.attributes.currPlayer++);
+        allPlayersHaveSelected = (playerCount==session.attributes.currPlayer++);
         if (allPlayersHaveSelected) {
             response.tell(
-                AlexaAssets.PokemonSelected.speechOutput(pokemonName)+" "+AlexaAssets.ReadyToBattle.speechOutput
+                AlexaAssets.PokemonSelected.speechOutput(session.attributes.currPlayer-1,pokemonName)+" "+AlexaAssets.ReadyToBattle.speechOutput
             );
         } else {
             response.ask(
-                AlexaAssets.PokemonSelected.speechOutput(pokemonName)+" "+AlexaAssets.SelectPokemon.speechOutput(session.attributes.currPlayer),
+                AlexaAssets.PokemonSelected.speechOutput(session.attributes.currPlayer-1,pokemonName)+" "+AlexaAssets.SelectPokemon.speechOutput(session.attributes.currPlayer),
                 AlexaAssets.SelectPokemon.repromptOutput(session.attributes.currPlayer)
             );
+//POSTTEST
+
+//POSTTEST
         }
 
     } else {

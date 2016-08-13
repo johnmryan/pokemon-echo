@@ -14,7 +14,7 @@ function handlePlayerCountRequest (intent, session, response) {
 
         response.ask(
             AlexaAssets.PlayerCountSelected.speechOutput(count)+" "+AlexaAssets.SelectPokemon.speechOutput(session.attributes.currPlayer),
-            AlexaAssets.SelectPokemon.repromptOutput(session.attributes.currPlayer),
+            AlexaAssets.SelectPokemon.repromptOutput(session.attributes.currPlayer)
         );
 
     } else {
