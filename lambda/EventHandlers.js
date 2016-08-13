@@ -7,7 +7,10 @@ var registerEventHandlers = function (eventHandlers) {
 	};
 
 	eventHandlers.onLaunch = function (launchRequest, session, response) {
-		response.tell(AlexaAssets.Welcome.speechOutput);
+        response.ask(
+            AlexaAssets.Welcome.speechOutput,
+            AlexaAssets.Welcome.repromptOutput
+        );
 	};
 
 	eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
