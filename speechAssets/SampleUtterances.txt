@@ -1,1 +1,2 @@
 SelectPokemonIntent I choose you {PokemonName}
+SelectPokemonIntent {PokemonName}
