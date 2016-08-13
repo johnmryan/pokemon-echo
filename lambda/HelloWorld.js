@@ -1,4 +1,6 @@
-var AlexaAssets = require("AlexaAssets");
+var AlexaSkill = require("./AlexaSkill");
+var eventHandlers = require("./EventHandlers");
+var intentHandlers = require("./IntentHandlers");
 
 /**
  * App ID for the skill
@@ -21,13 +23,10 @@ var HelloWorld = function () {
 HelloWorld.prototype = Object.create(AlexaSkill.prototype);
 HelloWorld.prototype.constructor = HelloWorld;
 
-HelloWorld.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
-    console.log("HelloWorld onSessionStarted requestId: " + sessionStartedRequest.requestId
-        + ", sessionId: " + session.sessionId);
-    // any initialization logic goes here
-};
+// Register Event Handlers
+eventHandlers.register(HelloWorld.prototype.eventHandlers);
 
-HelloWorld.prototype.intentHandlers["SelectPokemonIntent"] = function(request, session, response) {
-    console.log(AlexaAssets);
-    response.tell(AlexaAssets.Welcome.speechOutput);
-}
+// Register Intent Handlers
+intentHandlers.register(HelloWorld.prototype.intentHandlers);
+
+module.exports = HelloWorld;
