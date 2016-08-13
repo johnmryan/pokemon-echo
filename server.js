@@ -7,6 +7,13 @@ app.set('port', (process.env.PORT || 5000));
 // app.use('/src/client', express.static(__dirname + '/src/client'));
 app.use(express.static(__dirname + '/src/client'));
 
+// create controllers to be used for API calls
+var attackController = require("./src/server/attack-controller.js");
+var itemController = require("./src/server/item-controller.js");
+
+app.post('/api/attack', attackController.attack);
+app.post('/api/useItem', itemController.useItem);
+
 app.get('/', function(request, response) {
 	response.sendFile(__dirname + '/src/client/app/index.html');
 });
