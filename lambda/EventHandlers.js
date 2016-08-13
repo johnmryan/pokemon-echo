@@ -8,8 +8,8 @@ var registerEventHandlers = function (eventHandlers) {
 
 	eventHandlers.onLaunch = function (launchRequest, session, response) {
         response.ask(
-            AlexaAssets.Welcome.speechOutput,
-            AlexaAssets.Welcome.repromptOutput
+            AlexaAssets.Welcome.speechOutput+" "+AlexaAssets.PlayerCount.speechOutput,
+            AlexaAssets.PlayerCount.repromptOutput
         );
 	};
 

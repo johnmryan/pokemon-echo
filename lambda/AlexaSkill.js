@@ -156,11 +156,18 @@ Response.prototype = (function () {
         return returnResult;
     };
 
+    function wrap_ssml (speechOutput) {
+        return {
+            speech: "<speak>"+speechOutput+"</speak>",
+            type: "SSML"
+        };
+    }
+
     return {
         tell: function (speechOutput) {
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
-                output: speechOutput,
+                output: wrap_ssml(speechOutput),
                 shouldEndSession: true
             }));
         },
@@ -174,10 +181,11 @@ Response.prototype = (function () {
             }));
         },
         ask: function (speechOutput, repromptSpeech) {
+
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
-                output: speechOutput,
-                reprompt: repromptSpeech,
+                output: wrap_ssml(speechOutput),
+                reprompt: wrap_ssml(repromptSpeech),
                 shouldEndSession: false
             }));
         },

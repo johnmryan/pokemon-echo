@@ -1,14 +1,7 @@
-function wrap_ssml (speechOutput) {
-    return {
-        speech: "<speak>"+speechOutput+"</speak>",
-        type: "SSML"
-    };
-}
-
 var AlexaAssets = {
 
     Welcome: {
-        speechOutput: wrap_ssml("Welcome to <phoneme alphabet='ipa' ph='p'okimɑːn'>Pokemon</phoneme> Battle!")
+        speechOutput: "Welcome to <phoneme alphabet='ipa' ph='p'okimɑːn'>Pokemon</phoneme> Battle!"
     },
 
     PlayerCount: {
@@ -16,14 +9,30 @@ var AlexaAssets = {
         repromptOutput: "How many players?"
     },
 
-    PokemonSelect: {
+    PlayerCountSelected: {
+        speechOutput: function (count) {
+            return "There are "+count+" Pokemon Trainers.";
+        },
+        repromptOutput: "How many players?"
+    },
+
+    SelectPokemon: {
         speechOutput: function (playerNumber) {
-            var str = "";
-            if (playerNumber===1) { str = "Okay, "; }
-            return wrap_ssml(str+"Player "+playerNumber+" choose your <phoneme alphabet='ipa' ph='p'okimɑːn'>Pokemon</phoneme>.");
+            return "Player "+playerNumber+" choose your <phoneme alphabet='ipa' ph='p'okimɑːn'>Pokemon</phoneme>.";
         },
         repromptOutput: function (playerNumber) {
-            return wrap_ssml("Player "+playerNumber+". Choose your <phoneme alphabet='ipa' ph='p'okimɑːn'>Pokemon</phoneme>!");
+            return "Player "+playerNumber+". Choose your <phoneme alphabet='ipa' ph='p'okimɑːn'>pokemon</phoneme>!";
+        }
+    },
+
+    SelectPokemonError: {
+        speechOutput: "Please choose a better <phoneme alphabet='ipa' ph='p'okimɑːn'>pokemon</phoneme>.",
+        repromptOutput: "Please choose a <phoneme alphabet='ipa' ph='p'okimɑːn'>pokemon</phoneme>."
+    },
+
+    PokemonSelected: {
+        speechOutput: function (playerNumber,pokemon) {
+            return "Player "+playerNumber+" chose "+pokemon+".";
         }
     },
 
@@ -33,6 +42,10 @@ var AlexaAssets = {
         },
         repromptOutput: "How many players?"
     },
+
+    ReadyToBattle: {
+        speechOutput: "Ready to battle!"
+    }
 
 };
 
