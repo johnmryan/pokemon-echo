@@ -2,20 +2,137 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link href='app/views/game/game.css' rel='stylesheet'>
-    </head>
 
-    <body ng-app="app">
-        <div style="min-height:100%;" ui-view></div>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+		<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+		<style>
+			@font-face {
+			    font-family: 'PokemonGB';
+			    src: url('/assets/fonts/PokemonGB.ttf');
+			}
+			body {
+				font-family: "PokemonGB";
+				background-size: cover;
+			}
+			.sprite {
+				position: fixed;
+				-webkit-animation-duration: 8s;
+				animation-duration: 8s;
+			}
+			#player1Pokemon {
+				top: 400px;
+				left: 200px;
+			}
+			#player2Pokemon {
+				top: 400px;
+				left: 1200px;
+				animation-delay: 1s;
+			}
+			#player1Health {
+				position: fixed;
+				top: 100px;
+				left: 200px;	
+			}
+			#player2Health {
+				position: fixed;
+				top: 100px;
+				left: 1200px;	
+			}
+		</style>
+	</head>
+    <body>
+		<div id="player1Health">
+			<h3 id="pokemon1Name"></h3>
+			<h5 id="pokemon1CurrentHealth"></h5>
+		</div>
+		<div id="player2Health">
+			<h3 id="pokemon2Name"></h3>
+			<h5 id="pokemon2CurrentHealth"></h5>
+		</div>
+		<img id="player1Pokemon" class="sprite animated infinite shake"/>	
+		<img id="player2Pokemon" class="sprite animated infinite shake"/>	
+
+		<script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+		<script>
+		  // Initialize Firebase
+		  var config = {
+		    apiKey: "AIzaSyDGIIa2wjfMvbe2339SIlOnc90fQ4bUbTs",
+		    authDomain: "pokemonecho-2ab05.firebaseapp.com",
+		    databaseURL: "https://pokemonecho-2ab05.firebaseio.com",
+		    storageBucket: "pokemonecho-2ab05.appspot.com",
+		  };
+		  firebase.initializeApp(config);
+		</script>
+        <script>
+            var audio = new Audio('../assets/sounds/14-battle-wild-poke-mon-.mp3');
+            audio.play();
+			var loadBackground = function(imageNumber) {
+				var storageRef = firebase.storage().ref();
+				storageRef.child('Arena (' + imageNumber + ').jpg').getDownloadURL().then(function(url) {
+					console.log(url);
+					document.getElementsByTagName("body")[0].style.backgroundImage = "url('" + url + "')";
+				}).catch(function(error) {
+					console.log(error);
+				});
+				var nextNumber = imageNumber + 1;
+				if (imageNumber > 9) {
+					nextNumber = 1;
+				}
+				//setTimeout(loadBackground(nextNumber), 1000000);
+			};
+			loadBackground(1);
+			var ref = firebase.database().ref('gamestate1');	
+			var eventRef = ref.child("events");
+			eventRef.on('child_added', function(snapshot) {
+				Materialize.toast(snapshot.val(), 4000);
+			});
+			ref.on('value', function(snapshot) {
+				console.log(snapshot.val());
+				var player1Data = snapshot.child("player1");
+				drawPlayer1(player1Data);
+				var player2Data = snapshot.child("player2");
+				drawPlayer2(player2Data);
+			});
+			var drawPlayer1 = function(playerData) {
+				var currentPokemon = playerData.val().currentPokemon;
+				var items = playerData.child("items");
+				var pokemon = playerData.child("pokemon");
+				var currentPokemonData = pokemon.child(currentPokemon);
+				console.log(currentPokemonData.val());
+				var pokemonImgSrc = "http://img.pokemondb.net/artwork/" + currentPokemon + ".jpg"
+
+				var img = document.getElementById("player1Pokemon");
+				img.setAttribute("src", pokemonImgSrc);
+
+				var name = document.getElementById("pokemon1Name");
+				name.innerHTML = currentPokemon;
+
+				var health = document.getElementById("pokemon1CurrentHealth");
+				var currentHealth = currentPokemonData.val().current_health;
+				var totalHealth = currentPokemonData.val().total_health;
+				health.innerHTML = currentHealth + " / " + totalHealth;
+			};
+			var drawPlayer2 = function(playerData) {
+				var currentPokemon = playerData.val().currentPokemon;
+				var items = playerData.child("items");
+				var pokemon = playerData.child("pokemon");
+				var currentPokemonData = pokemon.child(currentPokemon);
+				console.log(currentPokemonData.val());
+				var pokemonImgSrc = "http://img.pokemondb.net/artwork/" + currentPokemon + ".jpg"
+
+				var img = document.getElementById("player2Pokemon");
+				img.setAttribute("src", pokemonImgSrc);
+
+				var name = document.getElementById("pokemon2Name");
+				name.innerHTML = currentPokemon;
+
+				var health = document.getElementById("pokemon2CurrentHealth");
+				var currentHealth = currentPokemonData.val().current_health;
+				var totalHealth = currentPokemonData.val().total_health;
+				health.innerHTML = currentHealth + " / " + totalHealth;
+			};
+		</script>
     </body>
-
-    <script src="assets/libs/angular.min.js"></script>
-    <script src="assets/libs/angular-ui-router.min.js"></script>
-
-    <!-- app services -->
-    <script src='app/app.js' type='text/javascript'></script>
-    <script src='app/app-router.js' type='text/javascript'></script>
-    
-    <!-- front-end controllers -->
-    <script src='app/views/game/game-controller.js' type='text/javascript'></script>
 </html>

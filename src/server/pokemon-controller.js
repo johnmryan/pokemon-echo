@@ -7,7 +7,7 @@ module.exports.choosePokemon = function(req, res) {
     var player = req.body.player;
     var pokemon = req.body.pokemon;
     var playerRef = ref.child("player" + player);
-    playerRef.set({
+    playerRef.update({
         currentPokemon: pokemon
     });
     res.send({"success":"true"});
