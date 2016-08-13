@@ -22,7 +22,29 @@ function handleSelectPokemonRequest (intent, session, response) {
                 AlexaAssets.SelectPokemon.repromptOutput(session.attributes.currPlayer)
             );
 //POSTTEST
+var request = require('request');
 
+// Set the headers
+var headers = {
+    'User-Agent':       'Super Agent/0.0.1',
+    'Content-Type':     'application/json'
+}
+
+// Configure the request
+var options = {
+    url: 'http://pokemon-echo.herokuapp.com/api/choosePokemon',
+    method: 'POST',
+    headers: headers,
+    form: {'pokemon': pokemonName, 'player': session.attributes.currPlayer}
+}
+
+// Start the request
+request(options, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        // Print out the response body
+        console.log(body)
+    }
+})
 //POSTTEST
         }
 
