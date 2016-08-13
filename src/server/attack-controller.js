@@ -3,6 +3,7 @@ var db = firebase.database();
 var ref = db.ref("gamestate1");
 
 module.exports.attack = function(req, res) {
+    console.log(req.body);
     //add event for given attack
     var pokeAttack = req.body.attack;
     var pokeName = req.body.pokemon;
