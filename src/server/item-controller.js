@@ -1,3 +1,6 @@
+var aiController = require("./ai-controller.js");
+aiController.makeMove();
+
 //var firebase = require("firebase");
 //firebase.initializeApp({
 //      serviceAccount: "path/to/serviceAccountCredentials.json",
