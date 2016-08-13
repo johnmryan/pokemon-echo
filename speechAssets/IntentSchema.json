@@ -1,0 +1,14 @@
+{
+    "intents": [
+    {
+        "intent": "SelectPokemonIntent",
+        "slots": 
+            [
+            {
+                "name": "PokemonName",
+                "type": "LIST_OF_POKEKMON_NAMES"
+            }
+            ]
+    }
+    ]
+}
