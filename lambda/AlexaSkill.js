@@ -139,7 +139,7 @@ Response.prototype = (function () {
                 outputSpeech: createSpeechObject(options.reprompt)
             };
         }
-        if (options.cardTitle && options.cardContent) {
+       if (options.cardTitle && options.cardContent) {
             alexaResponse.card = {
                 type: "Simple",
                 title: options.cardTitle,
@@ -181,7 +181,6 @@ Response.prototype = (function () {
             }));
         },
         ask: function (speechOutput, repromptSpeech) {
-
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: wrap_ssml(speechOutput),

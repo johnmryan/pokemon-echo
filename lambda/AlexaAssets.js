@@ -1,7 +1,7 @@
 var AlexaAssets = {
 
     Welcome: {
-        speechOutput: "Welcome to <phoneme alphabet='ipa' ph='p'okimɑːn'>Pokemon</phoneme> Battle!"
+        speechOutput: "Welcome to <phoneme alphabet='ipa' ph='pokimɑːn'>Pokemon</phoneme> Battle!"
     },
 
     PlayerCount: {
@@ -18,16 +18,16 @@ var AlexaAssets = {
 
     SelectPokemon: {
         speechOutput: function (playerNumber) {
-            return "Player "+playerNumber+" choose your <phoneme alphabet='ipa' ph='p'okimɑːn'>Pokemon</phoneme>.";
+            return "Player "+playerNumber+" choose your <phoneme alphabet='ipa' ph='pokimɑːn'>Pokemon</phoneme>.";
         },
         repromptOutput: function (playerNumber) {
-            return "Player "+playerNumber+". Choose your <phoneme alphabet='ipa' ph='p'okimɑːn'>pokemon</phoneme>!";
+            return "Player "+playerNumber+". Choose your <phoneme alphabet='ipa' ph='pokimɑːn'>pokemon</phoneme>!";
         }
     },
 
     SelectPokemonError: {
-        speechOutput: "Please choose a better <phoneme alphabet='ipa' ph='p'okimɑːn'>pokemon</phoneme>.",
-        repromptOutput: "Please choose a <phoneme alphabet='ipa' ph='p'okimɑːn'>pokemon</phoneme>."
+        speechOutput: "Please choose a better <phoneme alphabet='ipa' ph='pokimɑːn'>pokemon</phoneme>.",
+        repromptOutput: "Please choose a <phoneme alphabet='ipa' ph='pokimɑːn'>pokemon</phoneme>."
     },
 
     PokemonSelected: {
@@ -60,7 +60,7 @@ var AlexaAssets = {
 
     AttackSass: {
         speechOutput: function (move) {
-            return "Don't tell me to use "+move+". Tell your <phoneme alphabet='ipa' ph='p'okimɑːn'>pokemon</phoneme>!";
+            return "Don't tell me to use "+move+". Tell your <phoneme alphabet='ipa' ph='pokimɑːn'>pokemon</phoneme>!";
         }
     },
 

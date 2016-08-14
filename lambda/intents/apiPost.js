@@ -4,15 +4,15 @@ function handlePostRequest (endpoint, body, callback) {
 
     // Set the headers
     var headers = {
-        'Content-Type':     'application/json'
+        'Content-Type': 'application/json'
     }
 
     // Configure the request
     var options = {
-        url: 'http://pokemon-echo.herokuapp.com/api/'+endpoint,
-        method: 'POST',
+        url:     'http://pokemon-echo.herokuapp.com/api/'+endpoint,
+        method:  'POST',
         headers: headers,
-        json: body
+        json:    body
     }
 
     // DUBUG

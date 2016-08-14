@@ -22,7 +22,7 @@ function handleAttackRequest (intent, session, response) {
         apiPost("attack",body,function(){
             response.ask(
                 AlexaAssets.AttackUsed.speechOutput(pokemonName,move),
-                AlexaAssets.SelectAttack.repromtpOutput(session.attributes.currPlayer+1)
+                AlexaAssets.SelectAttack.repromptOutput(session.attributes.currPlayer+1)
             );
             session.attributes.currPlayer = (session.attributes.currPlayer+1)%session.attributes.playerCount;
         });

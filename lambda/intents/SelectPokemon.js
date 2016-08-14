@@ -17,7 +17,9 @@ function handleSelectPokemonRequest (intent, session, response) {
         };
         // increment currPlayer
         allPlayersHaveSelected = (playerCount==session.attributes.currPlayer++);
+        // Post to Pokemon endpoint
         apiPost("choosePokemon",body,function(){
+
             if (allPlayersHaveSelected) {
                 // reset to first player
                 session.attributes.currPlayer = 1;
@@ -27,6 +29,7 @@ function handleSelectPokemonRequest (intent, session, response) {
                     +" "+AlexaAssets.SelectAttack.speechOutput(session.attributes.currPlayer),
                     AlexaAssets.SelectAttack.repromptOutput(session.attributes.currPlayer)
                 );
+
             } else {
                 response.ask(
                     AlexaAssets.PokemonSelected.speechOutput(session.attributes.currPlayer-1,pokemonName)+" "+AlexaAssets.SelectPokemon.speechOutput(session.attributes.currPlayer),
